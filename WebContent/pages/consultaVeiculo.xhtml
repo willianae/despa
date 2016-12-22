@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="/templates/layout.xhtml">
+		<ui:define name="content">
+			<p:growl id="messages" />
+
+			<h:form>			    			    
+			    <h:panelGrid id="grid" columns="3" cellpadding="5">
+							<p:outputLabel for="placa" value="Placa:" />
+							<p:inputText id="placa" required="true"
+								value="#{beanVeiculo.veiculo.placa}" />							
+							<p:message for="placa" />			
+							
+							
+							<p:outputLabel for="senha" value="Senha:" />
+							<p:inputText id="senha" required="true"
+								value="#{beanVeiculo.veiculo.senha}" />														
+							<p:message for="senha" />			
+											
+				</h:panelGrid>													    	
+				<p:commandButton action="#{beanVeiculo.consultaVeiculos}"
+							value="Consultar" update="grid, messages, veiculoDT" />		    			    
+				
+				<p:dataTable id="veiculoDT" var="veic"
+					value="#{beanVeiculo.listaVeiculos}" selectionMode="single"
+					rowKey="#{veic.codigo}">
+					<!--  
+					<f:facet name="header">			          
+			          <p:commandButton update="clienteDT" process="clienteDT"
+							icon="ui-icon-arrowrefresh-1-w" value="Refresh"
+							action="#{beanCliente.carregaLista}" />
+					</f:facet>
+					-->
+					
+					<p:column headerText="PLACA">
+						<h:outputText value="#{veic.placa}" />
+					</p:column>
+					<p:column headerText="UF">
+						<h:outputText value="#{veic.uf}" />
+					</p:column>
+					<p:column headerText="SERVIÇO">
+						<h:outputText value="#{veic.servico}" />
+					</p:column>
+					<p:column headerText="SITUAÇÃO">
+						<h:outputText value="#{veic.situacao}" />
+					</p:column>																													
+				</p:dataTable>
+			</h:form>
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
